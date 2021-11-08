@@ -1,9 +1,9 @@
 import pickle
 import sys
-from keras.preprocessing.sequence import pad_sequences
-from keras.models import Model, load_model
-from keras.applications.resnet50 import ResNet50, preprocess_input
-from keras.preprocessing import image
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.models import Model, load_model
+from tensorflow.keras.applications.resnet50 import ResNet50, preprocess_input
+from tensorflow.keras.preprocessing import image
 import numpy as np
 
 model = load_model('weights/model_9.h5')

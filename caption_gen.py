@@ -59,6 +59,3 @@ def caption_this_image(image):
     caption = predict_caption(enc)
     
     return caption
-
-
-

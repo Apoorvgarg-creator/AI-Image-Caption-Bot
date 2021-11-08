@@ -2,8 +2,7 @@ import sys
 import cloudinary as Cloud
 import cloudinary.uploader as cu
 import os
-from flask_cors import CORS, cross_origin
-import requests
+from requests import get as rq
 from PIL import Image
 from io import BytesIO
 from flask import Flask, render_template, request, redirect
@@ -25,7 +24,7 @@ def marks():
     if request.method == 'POST':
         file_to_upload = request.files['userfile']
         upload_result = cu.upload(file_to_upload)
-        response = requests.get(upload_result["url"])
+        response = rq(upload_result["url"])
         img = Image.open(BytesIO(response.content))
         caption = caption_gen.caption_this_image(img)
         result_dic = {
@@ -38,4 +37,3 @@ if __name__ == '__main__':
     app.debug = True
     app.run()
 
-CORS(app)

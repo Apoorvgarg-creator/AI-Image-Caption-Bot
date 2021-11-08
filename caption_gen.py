@@ -1,54 +1,14 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
-# from keras.layers import *
-# import re
 import pickle
-# from time import time
-# import string
-# from keras.applications.vgg16 import VGG16
-# from keras.utils import to_categorical
-# from keras.layers.merge import add
 import sys
-
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.models import Model, load_model
 from tensorflow.keras.applications.resnet50 import ResNet50, preprocess_input
 from tensorflow.keras.preprocessing import image
 import numpy as np
-# import pandas as pd
-# import json
 
-
-# In[2]:
-
-
-model  = load_model('/Users/apoorvgarg/PycharmProjects/CB_lecture/ML_on_web/Image_Captioning/weights/model_9.h5')
-#model._make_predict_function()
-
-# In[3]:
-
-
+model = load_model('weights/model_9.h5')
 model_temp = ResNet50(weights='imagenet',input_shape=(224,224,3))
-
-
-# In[4]:
-
-
-# Create a new model, by removing the last layer from the resnet 50
-
-
-# In[5]:
-
-
 model_resnet = Model(model_temp.input,model_temp.layers[-2].output)
-#model_resnet._make_predict_function()
-
-# In[9]:
-
 
 def preprocess_image(img):
     print(img,file=sys.stderr)
@@ -59,54 +19,20 @@ def preprocess_image(img):
     img = preprocess_input(img)
     return img
 
-
-# In[27]:
-
-
 def encode_image(img):
     img = preprocess_image(img)
     feature_vector = model_resnet.predict(img)
     feature_vector = feature_vector.reshape(1,feature_vector.shape[1])
     return feature_vector
 
-
-# In[44]:
-
-
-#enc = encode_image("Naruto.jpg")
-
-
-# In[45]:
-
-
-#enc.shape
-
-
-# In[46]:
-
-
 words_to_idx = {}
 idx_to_words = {}
-
-
-# In[47]:
-
 
 with open('storage/word_to_idx.pkl','rb') as w2i:
     words_to_idx = pickle.load(w2i)  
     
 with open('storage/idx_to_word.pkl','rb') as i2w:
     idx_to_words = pickle.load(i2w)  
-
-
-# In[48]:
-
-
-# words_to_idx
-
-
-# In[49]:
-
 
 def predict_caption(photo):
     in_text = 'startseq'
@@ -122,21 +48,11 @@ def predict_caption(photo):
         
         if word == 'endseq':
             break
-            
-        
+
     final_caption = in_text.split()[1:-1]
     final_caption = " ".join(final_caption)
     
     return final_caption
-
-
-# In[50]:
-
-
-#predict_caption(enc)
-
-
-# In[ ]:
 
 def caption_this_image(image):
     enc = encode_image(image)

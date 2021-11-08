@@ -4,6 +4,9 @@ The goal of the project was to develop a model that generates a caption that bes
 ### Project Deployed on heroku -
 Link - https://peaceful-plateau-34289.herokuapp.com   
 
+### Project Deployed on python anywhere-
+http://apoorvgarg.pythonanywhere.com
+
 # Cloud Storage used
 Cloudinary
 # Model Pipeline -

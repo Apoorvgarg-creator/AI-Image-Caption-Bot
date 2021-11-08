@@ -4,21 +4,23 @@
 # In[1]:
 
 
-from keras.layers import *
-import re
+# from keras.layers import *
+# import re
 import pickle
-from time import time
-import string
-from keras.applications.vgg16 import VGG16
-from keras.utils import to_categorical
-from keras.layers.merge import add
-from keras.preprocessing.sequence import pad_sequences
-from keras.models import Model, load_model
-from keras.applications.resnet50 import ResNet50, preprocess_input
-from keras.preprocessing import image
+# from time import time
+# import string
+# from keras.applications.vgg16 import VGG16
+# from keras.utils import to_categorical
+# from keras.layers.merge import add
+import sys
+
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.models import Model, load_model
+from tensorflow.keras.applications.resnet50 import ResNet50, preprocess_input
+from tensorflow.keras.preprocessing import image
 import numpy as np
-import pandas as pd
-import json
+# import pandas as pd
+# import json
 
 
 # In[2]:
@@ -49,7 +51,9 @@ model_resnet = Model(model_temp.input,model_temp.layers[-2].output)
 
 
 def preprocess_image(img):
-    img = image.load_img(img, target_size=(224,224))
+    print(img,file=sys.stderr)
+    target_size = (224, 224)
+    img = img.resize(target_size)
     img = image.img_to_array(img)
     img = np.expand_dims(img,axis=0)
     img = preprocess_input(img)

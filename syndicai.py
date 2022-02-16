@@ -23,8 +23,4 @@ class PythonPredictor:
         image = requests.get(image_url).content
         img = Image.open(BytesIO(image))
         caption = caption_gen.caption_this_image(img)
-        result_dic = {
-            'image': image_url,
-            'caption': caption
-        }
-        return json.dumps(result_dic)
+        return caption
